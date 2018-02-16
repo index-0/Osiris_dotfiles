@@ -1,0 +1,18 @@
+urxvt.font:	-xos4-terminus-medium-r-normal--12-120-72-72-c-60-iso10646-1
+urxvt.boldfont: -xos4-terminus-bold-r-normal--12-120-72-72-c-60-iso10646-1
+
+urxvt.background:       #101010
+urxvt.foreground:       #D2C5BC
+urxvt.cursorColor:  #209090
+
+! #include ".colors/purple"
+! #include ".colors/default"
+! #include ".colors/dotshare"
+! #include ".colors/hell"
+#include ".colors/vida"
+
+urxvt.fading: 0
+urxvt.scrollBar: None
+urxvt.termName: rxvt-256color
+urxvt.internalBorder: 4
+urxvt.geometry: 90x25
