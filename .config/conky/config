@@ -1,71 +1,67 @@
-# Most of this should work for anyone, a few things to look out for:
-# 1: The tempurature option may output two options, just check "sensors" output and adjust the grep accordingly.
-# 2: The Music commands are based on outputs of "mocp -i", so change as neccisary according to the info output of your music player. Note: The first output for the music player shows the path minus the /home/jack/ prefix. You should adjust accordingly or omit it since it only displays very short paths properly.
-# 3: Some of the disk stuff should be adjusted depending on how many partitions you have as well as their names.
-# 4: If you don't have the profont font, adjust accordingly.
-##############################################
-#  Settings
-##############################################
-background yes
-use_xft yes
-xftfont Misc OhSnap:size=11
-xftalpha 1
-update_interval 1.0
-total_run_times 0
-own_window yes
-own_window_transparent yes
-own_window_type override
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-double_buffer yes
-minimum_size 200 200
-maximum_width 186
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
-default_color 6574b0
-default_shade_color 000000
-default_outline_color 9B64FB
-alignment middle_right
-gap_x 12
-gap_y 12
-no_buffers yes
-uppercase no
-override_utf8_locale no
-update_interval 1.0
-##############################################
-#  Output
-##############################################
-TEXT
-${color #c84323}SYSTEM INFORMATION $hr${color}
+conky.config = {
+-- Most of this should work for anyone, a few things to look out for:
+-- 1: The tempurature option may output two options, just check "sensors" output and adjust the grep accordingly.
+-- 2: The Music commands are based on outputs of "mocp -i", so change as neccisary according to the info output of your music player. Note: The first output for the music player shows the path minus the /home/jack/ prefix. You should adjust accordingly or omit it since it only displays very short paths properly.
+-- 3: Some of the disk stuff should be adjusted depending on how many partitions you have as well as their names.
+-- 4: If you don't have the profont font, adjust accordingly.
+--#############################################
+--  Settings
+--#############################################
+	background = true,
+	use_xft = true,
+	font = 'Misc OhSnap:size=11',
+	xftalpha = 1,
+	update_interval = 1.0,
+	total_run_times = 0,
+	own_window = true,
+	own_window_transparent = true,
+	own_window_type = 'override',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	double_buffer = true,
+	minimum_width = 200, minimum_height = 200,
+	maximum_width = 186,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+	default_color = '#ebded6',
+	default_shade_color = '#150603',
+	default_outline_color = '#9B64FB',
+	alignment = 'middle_right',
+	gap_x = 12,
+	gap_y = 12,
+	no_buffers = true,
+	uppercase = false,
+	override_utf8_locale = false,
+	update_interval = 1.0,
+--#############################################
+--  Output
+--#############################################
+};
+
+conky.text = [[
+${color #150603}SYSTEM INFORMATION $hr${color}
 Host:$alignr$nodename
 OS: $alignr Gentoo Linux
 Kernel:$alignr$kernel
 Uptime:$alignr$uptime
 Processes: ${alignr}$processes ($running_processes running)
 Load: ${alignr}$loadavg
-${color #c84323}NETWORK $hr${color}
+${color #150603}NETWORK $hr${color}
 Gateway:$alignr$gw_ip
-Local IP: $alignr ${addr enp4s0}
-# External IP: $alignr ${exec curl ifconfig.me}
-# SSID: $alignr ${wireless_essid wlp1s0f0u4}
-# Connection Quality: $alignr ${wireless_link_qual wlp1s0f0u4}%
+Local IP: $alignr ${addr wlp10s0f3u4}
 Down:          Up:
-${downspeedgraph enp4s0 25,88 e19a93 e19a93} | ${alignr}${upspeedgraph enp4s0 25,88 8e849d 8e849d}
-${downspeedf enp4s0}KiB/s ${alignr}${upspeedf enp4s0}KiB/s
-${totaldown enp4s0} ${alignr}${totalup enp4s0}
+${downspeedgraph wlp10s0f3u4 25,88 282828 282828} | ${alignr}${upspeedgraph wlp10s0f3u4 25,88 4c4c4c 4c4c4c}
+${downspeedf wlp10s0f3u4}KiB/s ${alignr}${upspeedf wlp10s0f3u4}KiB/s
+${totaldown wlp10s0f3u4} ${alignr}${totalup wlp10s0f3u4}
 
-${color #c84323}CPU $hr${color}
+${color #150603}CPU $hr${color}
 Usage:${alignr}${cpu cpu0}%
 Frequency:${alignr}${freq}MHz
 Temperature:${alignr}${exec sensors | grep 'temp1:' | grep 'high' | awk '{print $2}' | cut -c2-3}C
 $cpugraph
 
-# ${color #c84323}GPU $hr${color}
-# Temperature:${alignr}${exec sensors | grep 'temp1:' | grep 'hyst' | awk '{print $2}' | cut -c2-3}C
-# ${exec /amdgpu_info.sh}
-
-${color #c84323}HDD $hr${color}
+${color #150603}HDD $hr${color}
 Filesystem Space Left:
 /$alignr${fs_used /}/${fs_size /}
 ${fs_bar /}
@@ -82,12 +78,12 @@ ${fs_bar /home/index/gentoo}
 games$alignr${fs_used /home/index/games}/${fs_size /home/index/games}
 ${fs_bar /home/index/games}
 #${execigraph 2 -t sensors | grep temp2 | cut -c 15-16 | tail -1}
-${color #c84323}MEMORY & I/O $hr${color}
+${color #150603}MEMORY & I/O $hr${color}
 Memory:$alignr$mem / $memmax
 $memgraph
 Disk I/O:$alignr$diskio/s
 $diskiograph
-${color #c84323}TOP PROCESSES $hr${color}
+${color #150603}TOP PROCESSES $hr${color}
 ${top name 1}$alignr${top cpu 1}%
 ${top name 2}$alignr${top cpu 2}%
 ${top name 3}$alignr${top cpu 3}%
@@ -97,3 +93,4 @@ ${top name 5}$alignr${top cpu 5}%
 ${top_mem name 1}$alignr${top_mem mem 1}%
 ${top_mem name 2}$alignr${top_mem mem 2}%
 ${top_mem name 3}$alignr${top_mem mem 3}%
+]];

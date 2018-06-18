@@ -17,7 +17,7 @@ font pango: Misc OhSnap 11
 new_window 1pixel
 new_float 1pixel
 
-client.focused          #3F8AC2 #096BAA #00BAA7 #00DA8E
+client.focused          #000000 #ebded6 #150603 #FCCC66
 client.focused_inactive #333333 #5F676A #ffffff #484e50
 client.unfocused        #333333 #424242 #888888 #292d2e
 client.urgent           #C10004 #900000 #ffffff #900000
@@ -185,6 +185,7 @@ bindsym $mod+Pause      exec sh ~/.config/i3/i3lock.sh
 # }
 
 exec xrdb ~/.Xresources
-exec feh --bg-fill Wallpapers/Lolis/1514695360913.png 
+exec feh --bg-fill /home/index/Wallpapers/Anime/Serial_Experiments_Lain/1520271295935.jpg
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec conky -c /home/index/.config/conky/config
+exec compton -b --config .config/compton/compton.conf

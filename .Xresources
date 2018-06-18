@@ -15,4 +15,4 @@ urxvt.fading: 0
 urxvt.scrollBar: None
 urxvt.termName: rxvt-256color
 urxvt.internalBorder: 4
-urxvt.geometry: 90x25
+urxvt.geometry: 90x26
