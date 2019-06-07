@@ -20,10 +20,10 @@ import XMonad.Util.Run
 
 
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops hiding (fullscreenEventHook)
 import XMonad.Hooks.ManageDocks 
 import XMonad.Hooks.UrgencyHook
 
+import XMonad.Layout.Grid
 import XMonad.Layout.Spacing
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Gaps
@@ -91,8 +91,8 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
  
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
+myNormalBorderColor  = "#ccebded6"
+myFocusedBorderColor = "#150603"
  
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -100,13 +100,13 @@ myFocusedBorderColor = "#ff0000"
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
  
     -- launch a terminal
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
  
     -- launch rofi
-    , ((modm,               xK_d     ), spawn "rofi -theme solarized -font 'hack 10' -show combi")
+    , ((modm,               xK_d     ), spawn "rofi -show combi")
  
     -- close focused window
-    , ((modm .|. shiftMask, xK_c     ), kill)
+    , ((modm .|. shiftMask, xK_q     ), kill)
  
      -- Rotate through the available layout algorithms
     , ((modm,               xK_space ), sendMessage NextLayout)
@@ -130,7 +130,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_m     ), windows W.focusMaster  )
  
     -- Swap the focused window and the master window
-    , ((modm,               xK_Return), windows W.swapMaster)
+    , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
  
     -- Swap the focused window with the next window
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
@@ -160,10 +160,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_b     ), sendMessage ToggleStruts)
  
     -- Quit xmonad
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
+    , ((modm .|. shiftMask, xK_c     ), io (exitWith ExitSuccess))
  
     -- Restart xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm,               xK_c     ), spawn "xmonad --recompile; xmonad --restart")
     ]
     ++
  
@@ -188,16 +188,23 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
  
     ++
 
-     -- mpc
+     -- Mpc
     [ ((0, 0x1008ff17), spawn "mpc next")
     , ((0, 0x1008ff16), spawn "mpc prev")
     , ((0, 0x1008ff14), spawn "mpc toggle")
     , ((0, 0x1008ff15), spawn "mpc stop")
     
-    -- volume
-    , ((0, 0x1008ff13), spawn "amixer sset 'Master' 5%+")
-    , ((0, 0x1008ff11), spawn "amixer sset 'Master' 5%-")
-    , ((0, 0x1008ff12), spawn "amixer sset 'Master' toggle")]
+    -- Volume
+    , ((0, 0x1008ff13), spawn "amixer -c 1 sset 'Master' 5%+")
+    , ((0, 0x1008ff11), spawn "amixer -c 1 sset 'Master' 5%-")
+    , ((0, 0x1008ff12), spawn "amixer -c 1 sset 'Master' toggle")
+    
+    -- Screenshot
+    , ((0,                  0xff61), spawn "scrot -q 80 -b ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send \"Fullscreen capture saved as:\" \"`date +%Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png\"")
+    , ((modm,               0xff61), spawn "scrot -q 80 -u ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send \"Window capture saved as:\" \"`date +%Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png\"")
+    , ((modm .|. shiftMask, 0xff61), spawn "scrot -q 80 -s ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send \"Rectangle area capture saved as:\" \"`date +    %Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png\"")]
+
+
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -235,7 +242,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = smartSpacingWithEdge 2 $ avoidStruts (tiled ||| Mirror tiled ||| noBorders Full)
+myLayout = smartSpacingWithEdge 2 $ avoidStruts (tiled ||| Grid ||| noBorders Full)
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -265,12 +272,11 @@ myLayout = smartSpacingWithEdge 2 $ avoidStruts (tiled ||| Mirror tiled ||| noBo
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "Polybar"        --> doIgnore
-    , className =? "MPlayer"        --> doFloat
+    [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
- 
+    , resource  =? "kdesktop"       --> doIgnore]
+
 ------------------------------------------------------------------------
 -- Event handling
  
@@ -283,23 +289,7 @@ myManageHook = composeAll
 -- It will add EWMH event handling to your custom event hooks by
 -- combining them with ewmhDesktopsEventHook.
 --
-myEventHook = do
-    ewmhDesktopsEventHook
-    docksEventHook
- 
-------------------------------------------------------------------------
--- Status bars and logging
- 
--- Perform an arbitrary action on each internal state change or X event.
--- See the 'XMonad.Hooks.DynamicLog' extension for examples.
---
---
--- * NOTE: EwmhDesktops users should use the 'ewmh' function from
--- XMonad.Hooks.EwmhDesktops to modify their defaultConfig as a whole.
--- It will add EWMH logHook actions to your custom log hook by
--- combining it with ewmhDesktopsLogHook.
---
-myLogHook = ewmhDesktopsLogHook
+myEventHook = docksEventHook
  
 ------------------------------------------------------------------------
 -- Startup hook
@@ -316,46 +306,34 @@ myLogHook = ewmhDesktopsLogHook
 -- hook by combining it with ewmhDesktopsStartup.
 --
 myStartupHook = do
-        ewmhDesktopsStartup
-        docksStartupHook
         spawn "xrdb ~/.Xresources"
         spawn "feh --bg-fill /home/index/Wallpapers/Anime/Serial_Experiments_Lain/1520271295935.jpg"
         spawn "conky -c /home/index/.config/conky/config"
-        spawn "sh /home/index/.config/polybar/launch.sh"
+        spawn "compton -b --config .config/compton/compton.conf"
 
-------------------------------------------------------------------------
--- Now run xmonad with all the defaults we set up.
- 
--- Run xmonad with the settings you specify. No need to modify this.
---
-main = xmonad $ ewmh $ defaults
-
--- A structure containing your configuration settings, overriding
--- fields in the default config. Any you don't override, will
--- use the defaults defined in xmonad/XMonad/Config.hs
---
--- No need to modify this.
---
-defaults = defaultConfig {
-      -- simple stuff
+main = do
+    h <- spawnPipe "xmobar .xmobarrc"
+    xmonad $ def {
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
-        -- numlockMask deprecated in 0.9.1
-        -- numlockMask        = myNumlockMask,
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
  
-      -- key bindings
         keys               = myKeys,
         mouseBindings      = myMouseBindings,
 
-      -- hooks, layouts
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook,
+        logHook            = dynamicLogWithPP $ def { 
+                      ppCurrent = xmobarColor "#150603" "#555555" . wrap " " " " . pad
+                    , ppHidden  = xmobarColor "#150603" ""        . wrap " " " " . pad
+                    , ppWsSep   = ""
+                    , ppOutput  = hPutStrLn h 
+                    , ppLayout  = const ""
+                      },
         startupHook        = myStartupHook
     }

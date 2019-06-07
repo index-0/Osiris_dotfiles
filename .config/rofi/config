@@ -2,7 +2,7 @@
 rofi.modi:                           combi
 
 ! "Window opacity" Set from: Default
-rofi.opacity:                        100
+rofi.opacity:                        80
 
 ! "Window width" Set from: Default
 ! rofi.width:                          50
@@ -327,3 +327,4 @@ rofi.combi-modi:                     window,drun,ssh
 
 ! "The display name of this browser" Set from: Default
 ! rofi.display-combi:
+rofi.theme: /usr/share/rofi/themes/Paper.rasi

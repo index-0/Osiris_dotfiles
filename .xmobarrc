@@ -1,0 +1,31 @@
+Config { font = "xft:fixed:pixelsize=12:antialias=false"
+       , additionalFonts = ["xft:unifont:pixelsize=10:antialias=false"]
+       , borderColor = "#ccebde"
+       , border = TopB
+       , bgColor = "#ebded6"
+       , fgColor = "#150603"
+       , alpha = 255
+       , position = Static { xpos = 0 , ypos = 1, width = 1920, height = 16 }
+       , textOffset = 11
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Network "enp5s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run MPD ["-t", "<artist> - <title>"] 10
+                    , Run Cpu ["-L","3","-H","50",
+                               "--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader%} %mpd% {%cpu% | %memory% * %swap% | %enp5s0% <fc=#ee9a00>%date%</fc> "
+       }
+

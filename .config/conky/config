@@ -49,17 +49,23 @@ Processes: ${alignr}$processes ($running_processes running)
 Load: ${alignr}$loadavg
 ${color #150603}NETWORK $hr${color}
 Gateway:$alignr$gw_ip
-Local IP: $alignr ${addr wlp10s0f3u4}
+Local IP: $alignr ${addr enp5s0}
 Down:          Up:
-${downspeedgraph wlp10s0f3u4 25,88 282828 282828} | ${alignr}${upspeedgraph wlp10s0f3u4 25,88 4c4c4c 4c4c4c}
-${downspeedf wlp10s0f3u4}KiB/s ${alignr}${upspeedf wlp10s0f3u4}KiB/s
-${totaldown wlp10s0f3u4} ${alignr}${totalup wlp10s0f3u4}
+${downspeedgraph enp5s0 25,88 282828 282828} | ${alignr}${upspeedgraph enp5s0 25,88 4c4c4c 4c4c4c}
+${downspeedf enp5s0}KiB/s ${alignr}${upspeedf enp5s0}KiB/s
+${totaldown enp5s0} ${alignr}${totalup enp5s0}
 
 ${color #150603}CPU $hr${color}
 Usage:${alignr}${cpu cpu0}%
 Frequency:${alignr}${freq}MHz
-Temperature:${alignr}${exec sensors | grep 'temp1:' | grep 'high' | awk '{print $2}' | cut -c2-3}C
+Temperature:${alignr}${exec sensors | grep 'Tctl' | awk '{print $2}' | cut -c2-3}C
 $cpugraph
+
+${color #150603}GPU $hr${color}
+vddgfx:${alignr}${exec sensors | grep "vddgfx" | awk '{print $2}'} V
+Fan Speed:${alignr}${exec sensors | grep "fan1" | awk '{print $2}'} RPM
+Temperature: ${alignr}${exec sensors | grep "crit" | awk '{print $2}' | cut -c2-3}C
+Power:${alignr}${exec sensors | grep 'power1' | awk '{print $2}'} W
 
 ${color #150603}HDD $hr${color}
 Filesystem Space Left:

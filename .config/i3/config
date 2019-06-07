@@ -43,7 +43,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec rofi -theme solarized -font "hack 10" -show combi
+bindsym $mod+d exec rofi -show
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -162,13 +162,12 @@ bindsym XF86AudioStop exec mpc stop
 bindsym XF86AudioNext exec mpc next
 bindsym XF86AudioPrev exec mpc prev
 bindsym XF86AudioMute exec amixer sset 'Master' toggle
-bindsym XF86AudioRaiseVolume exec amixer sset 'Master' 5%+
-bindsym XF86AudioLowerVolume exec amixer sset 'Master' 5%-
+bindsym XF86AudioRaiseVolume exec amixer -c 1 sset 'Master' 5%+
+bindsym XF86AudioLowerVolume exec amixer -c 1 sset 'Master' 5%-
 
 # Screenshot
-bindsym Print       exec scrot -q 100 -b ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png
-bindsym Shift+Print exec scrot -q 100 -b -u ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png
-bindsym $mod+Print  exec scrot -q 100 -s ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png
+bindsym Print       exec scrot -q 80 -b ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send "Fullscreen capture saved as:" "`date +%Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png"
+bindsym $mod+Print exec scrot -q 80 -u ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send "Window capture saved as:" "`date +%Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png"
 
 bindsym $mod+Pause      exec sh ~/.config/i3/i3lock.sh
 
@@ -184,6 +183,7 @@ bindsym $mod+Pause      exec sh ~/.config/i3/i3lock.sh
 #         # font -misc-fixed-medium-r-normal--13-120-75-75-c-70-iso10646-1
 # }
 
+exec xrandr --output HDMI-A-1  --off
 exec xrdb ~/.Xresources
 exec feh --bg-fill /home/index/Wallpapers/Anime/Serial_Experiments_Lain/1520271295935.jpg
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh

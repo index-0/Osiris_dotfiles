@@ -182,10 +182,9 @@ visualizer_color = cyan
 ## Note: colors can be nested.
 ##
 
-
 song_list_format = "{$4%a$9 $1|$9 }{%t}|{$8%f$9}$R{$b$8%b$/b$9} $1| %l$9"
 # song_list_format = " $0{%n} $(magenta_black)• $(white_black){%t} {$R} $(green_black)| $(default){%b} $(green_black)| $(default){%a} $(green_black){$R}| $(default){%l} "
-song_status_format = " $(3_1){%a} - %t $0 "
+song_status_format = " $(green){%a} - %t $0 "
 
 song_library_format = "{%n - }{%t}|{%f}"
 
@@ -194,10 +193,10 @@ alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
 alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
 
 # now_playing_prefix = $b
-now_playing_prefix = "$(red_black)»$b"
+now_playing_prefix = "$(red)»$b"
 
 # now_playing_suffix = $/b
-now_playing_suffix = "$(white_black)$/b"
+now_playing_suffix = "$(white)$/b"
 
 # browser_playlist_prefix = "$2playlist$9 "
 browser_playlist_prefix = "$2 λ $0 "
@@ -258,7 +257,7 @@ browser_sort_format = {%a - }{%t}|{%f} {(%l)}
 ##   available.
 ##
 #
-song_columns_list_format = "(4f)[blue_black]{n} (40)[white_black]{t} (30)[white_black]{a} (30)[white_black]{b} (6f)[yellow]{l}"
+song_columns_list_format = "(4f)[blue]{n} (40)[white]{t} (30)[white]{a} (30)[white]{b} (6f)[yellow]{l}"
 
 #
 ##### various settings #####
@@ -328,7 +327,7 @@ data_fetching_delay = yes
 
 ## Available values: artist, album_artist, date, genre, composer, performer.
 ##
-media_library_primary_tag = artist
+media_library_primary_tag = album_artist
 
 # media_library_albums_split_by_date = yes
 
@@ -507,31 +506,31 @@ enable_window_title = yes
 
 colors_enabled = yes
 
-empty_tag_color = cyan_black
+empty_tag_color = cyan
 
-header_window_color = white_black
+header_window_color = white
 
-volume_color = white_black
+volume_color = white
 
-state_line_color = white_black
+state_line_color = white
 
-state_flags_color = white_black
+state_flags_color = white
 
-main_window_color = white_black
+main_window_color = white
 
-color1 = white_black
+color1 = white
 
-color2 = white_black
+color2 = white
 
-progressbar_color = white_black
+progressbar_color = white
 
-progressbar_elapsed_color = green_black
+progressbar_elapsed_color = green
 
-statusbar_color = white_black
+statusbar_color = white
 
-alternative_ui_separator_color = red_black
+alternative_ui_separator_color = red
 
-window_border_color = white_black
+window_border_color = white
 
-active_window_border = white_black
+active_window_border = white
 

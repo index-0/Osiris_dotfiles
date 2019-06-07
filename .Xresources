@@ -1,7 +1,8 @@
+! urxvt.font: -aaron-bitocra13-medium-r-normal--13-130-84-84-c-90-iso8859-1
+! urxvt.font: -ypn-envypn-medium-r-normal--13-130-75-75-c-90-iso8859-1
 urxvt.font:	-xos4-terminus-medium-r-normal--12-120-72-72-c-60-iso10646-1
 urxvt.boldfont: -xos4-terminus-bold-r-normal--12-120-72-72-c-60-iso10646-1
 
-urxvt.background:       #101010
 urxvt.foreground:       #D2C5BC
 urxvt.cursorColor:  #209090
 
@@ -10,6 +11,9 @@ urxvt.cursorColor:  #209090
 ! #include ".colors/dotshare"
 ! #include ".colors/hell"
 #include ".colors/vida"
+
+urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0200/F200
 
 urxvt.fading: 0
 urxvt.scrollBar: None

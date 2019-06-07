@@ -149,7 +149,7 @@
 
 [frame]
     width = 3
-    color = "#dddddd"
+    color = "#150603"
 
 [shortcuts]
 
@@ -180,8 +180,8 @@
     timeout = 10
 
 [urgency_normal]
-    background = "#9B64FB"
-    foreground = "#dddddd"
+    background = "#ccebded6"
+    foreground = "#150603"
     timeout = 10
 
 [urgency_critical]
