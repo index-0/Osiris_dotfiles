@@ -15,6 +15,7 @@ urxvt.cursorColor:  #209090
 urxvt*depth: 32
 urxvt*background: rgba:0000/0000/0200/F200
 
+urxvt.saveLines: 20000
 urxvt.fading: 0
 urxvt.scrollBar: None
 urxvt.termName: rxvt-256color

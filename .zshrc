@@ -66,7 +66,6 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-alias ls="ls++"
 
 # User configuration
 
@@ -97,3 +96,4 @@ alias ls="ls++"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source /home/index/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export GPG_TTY=$(tty)

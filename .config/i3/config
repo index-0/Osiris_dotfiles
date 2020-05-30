@@ -37,7 +37,7 @@ client.urgent           #C10004 #900000 #ffffff #900000
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec st
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -185,7 +185,6 @@ bindsym $mod+Pause      exec sh ~/.config/i3/i3lock.sh
 
 exec xrandr --output HDMI-A-1  --off
 exec xrdb ~/.Xresources
-exec feh --bg-fill /home/index/Wallpapers/Anime/Serial_Experiments_Lain/1520271295935.jpg
+exec feh --bg-fill /home/index/Wallpapers/Anime/Serial_Experiments_Lain/1561835350723-1.jpg
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec conky -c /home/index/.config/conky/config
-exec compton -b --config .config/compton/compton.conf

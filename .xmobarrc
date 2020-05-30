@@ -1,12 +1,11 @@
-Config { font = "xft:fixed:pixelsize=12:antialias=false"
-       , additionalFonts = ["xft:unifont:pixelsize=10:antialias=false"]
-       , borderColor = "#ccebde"
+Config { font = "xft:terminus:pixelsize=12:antialias=false"
+       , borderColor = "#000000"
        , border = TopB
-       , bgColor = "#ebded6"
-       , fgColor = "#150603"
+       , bgColor = "#000000"
+       , fgColor = "#ffffff"
        , alpha = 255
-       , position = Static { xpos = 0 , ypos = 1, width = 1920, height = 16 }
-       , textOffset = 11
+       , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 20 }
+       , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
        , pickBroadest = False
@@ -15,17 +14,18 @@ Config { font = "xft:fixed:pixelsize=12:antialias=false"
        , iconRoot = "."
        , allDesktops = True
        , overrideRedirect = True
-       , commands = [ Run Network "enp5s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run MPD ["-t", "<artist> - <title>"] 10
-                    , Run Cpu ["-L","3","-H","50",
-                               "--normal","green","--high","red"] 10
-                    , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Swap [] 10
-                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+       , commands = [ Run MPD ["-t", "<artist> - <title>"] 5
+                    , Run DiskU [("/", "<usedp> "), ("/boot", "<usedp> "), ("/mnt", "<usedp> "), ("/home/index/mount","<usedp> ")] 
+                      ["-L", "20", "-n", "green", "-H", "90", "-h", "red"] 20
+                    , Run Volume "default" "Master" ["-t","<volume>% <status>"] 10
+                    , Run Cpu ["-t","<total>%","-w","3","-L","5","-H","75","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","<usedratio>%"] 10
+                    , Run Network "wlp11s0f3u1" ["-t","<rx> <tx>","-w","4","-L","30","-H","60","--normal","green","--high","red"] 10
+                    , Run Date "<fc=#e2e2e2>%b %_d %H:%M:%S</fc>" "date" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader%} %mpd% {%cpu% | %memory% * %swap% | %enp5s0% <fc=#ee9a00>%date%</fc> "
+       , template = "%StdinReader%} %mpd% {> %disku% | %default:Master%| %cpu% <+> %memory% | %wlp11s0f3u1% | <fc=#ee9a00>%date%</fc> "
        }
 

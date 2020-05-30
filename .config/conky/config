@@ -9,7 +9,7 @@ conky.config = {
 --#############################################
 	background = true,
 	use_xft = true,
-	font = 'Misc OhSnap:size=11',
+	font = 'dina:size=10',
 	xftalpha = 1,
 	update_interval = 1.0,
 	total_run_times = 0,
@@ -18,17 +18,17 @@ conky.config = {
 	own_window_type = 'override',
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	double_buffer = true,
-	minimum_width = 200, minimum_height = 200,
-	maximum_width = 186,
+	minimum_width = 210, minimum_height = 250,
+	maximum_width = 210,
 	draw_shades = false,
 	draw_outline = false,
 	draw_borders = false,
 	draw_graph_borders = false,
 	default_color = '#ebded6',
-	default_shade_color = '#150603',
+	default_shade_color = '#5074be',
 	default_outline_color = '#9B64FB',
 	alignment = 'middle_right',
-	gap_x = 12,
+	gap_x = 14,
 	gap_y = 12,
 	no_buffers = true,
 	uppercase = false,
@@ -40,14 +40,14 @@ conky.config = {
 };
 
 conky.text = [[
-${color #150603}SYSTEM INFORMATION $hr${color}
+${color #5074be}SYSTEM INFORMATION $hr${color}
 Host:$alignr$nodename
 OS: $alignr Gentoo Linux
 Kernel:$alignr$kernel
 Uptime:$alignr$uptime
 Processes: ${alignr}$processes ($running_processes running)
 Load: ${alignr}$loadavg
-${color #150603}NETWORK $hr${color}
+${color #5074be}NETWORK $hr${color}
 Gateway:$alignr$gw_ip
 Local IP: $alignr ${addr enp5s0}
 Down:          Up:
@@ -55,19 +55,19 @@ ${downspeedgraph enp5s0 25,88 282828 282828} | ${alignr}${upspeedgraph enp5s0 25
 ${downspeedf enp5s0}KiB/s ${alignr}${upspeedf enp5s0}KiB/s
 ${totaldown enp5s0} ${alignr}${totalup enp5s0}
 
-${color #150603}CPU $hr${color}
+${color #5074be}CPU $hr${color}
 Usage:${alignr}${cpu cpu0}%
 Frequency:${alignr}${freq}MHz
 Temperature:${alignr}${exec sensors | grep 'Tctl' | awk '{print $2}' | cut -c2-3}C
 $cpugraph
 
-${color #150603}GPU $hr${color}
-vddgfx:${alignr}${exec sensors | grep "vddgfx" | awk '{print $2}'} V
+${color #5074be}GPU $hr${color}
+vddgfx:${alignr}${exec sensors | grep "vddgfx" | awk '{print $2 " " $3}'}
 Fan Speed:${alignr}${exec sensors | grep "fan1" | awk '{print $2}'} RPM
 Temperature: ${alignr}${exec sensors | grep "crit" | awk '{print $2}' | cut -c2-3}C
 Power:${alignr}${exec sensors | grep 'power1' | awk '{print $2}'} W
 
-${color #150603}HDD $hr${color}
+${color #5074be}HDD $hr${color}
 Filesystem Space Left:
 /$alignr${fs_used /}/${fs_size /}
 ${fs_bar /}
@@ -78,18 +78,13 @@ ${fs_bar /boot}
 /mnt$alignr${fs_used /mnt}/${fs_size /mnt}
 ${fs_bar /mnt}
 
-gentoo$alignr${fs_used /home/index/gentoo}/${fs_size /home/index/gentoo}
-${fs_bar /home/index/gentoo}
-
-games$alignr${fs_used /home/index/games}/${fs_size /home/index/games}
-${fs_bar /home/index/games}
 #${execigraph 2 -t sensors | grep temp2 | cut -c 15-16 | tail -1}
-${color #150603}MEMORY & I/O $hr${color}
+${color #5074be}MEMORY & I/O $hr${color}
 Memory:$alignr$mem / $memmax
 $memgraph
 Disk I/O:$alignr$diskio/s
 $diskiograph
-${color #150603}TOP PROCESSES $hr${color}
+${color #5074be}TOP PROCESSES $hr${color}
 ${top name 1}$alignr${top cpu 1}%
 ${top name 2}$alignr${top cpu 2}%
 ${top name 3}$alignr${top cpu 3}%

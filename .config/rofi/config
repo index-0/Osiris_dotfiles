@@ -327,4 +327,4 @@ rofi.combi-modi:                     window,drun,ssh
 
 ! "The display name of this browser" Set from: Default
 ! rofi.display-combi:
-rofi.theme: /usr/share/rofi/themes/Paper.rasi
+! rofi.theme: /usr/share/rofi/themes/Paper.rasi

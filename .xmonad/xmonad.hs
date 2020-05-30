@@ -1,35 +1,28 @@
---
--- xmonad example config file for xmonad-0.9
---
--- A template showing all available configuration hooks,
--- and how to override the defaults in your own xmonad.hs conf file.
---
--- Normally, you'd only override those defaults you care about.
---
--- NOTE: Those updating from earlier xmonad versions, who use
--- EwmhDesktops, safeSpawn, WindowGo, or the simple-status-bar
--- setup functions (dzen, xmobar) probably need to change
--- xmonad.hs, please see the notes below, or the following
--- link for more details:
---
--- http://www.haskell.org/haskellwiki/Xmonad/Notable_changes_since_0.8
---
- 
+{-# LANGUAGE DeriveDataTypeable, NoMonomorphismRestriction, MultiParamTypeClasses, ImplicitParams #-}
+{-# OPTIONS_GHC -W -fwarn-unused-imports -fno-warn-missing-signatures #-}
+
 import XMonad
 import XMonad.Util.Run 
-
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks 
 import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.EwmhDesktops
+
+import XMonad.Actions.Navigation2D
 
 import XMonad.Layout.Grid
-import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Fullscreen
-import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Tabbed
+
+import XMonad.Prompt
+import XMonad.Prompt.Shell
 
 import Data.Monoid
+import Data.List
 import System.Exit
 
 import qualified XMonad.StackSet as W
@@ -38,7 +31,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "urxvt"
+myTerminal      = "st"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -87,23 +80,21 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces    = ["www", "dev", "sys", "mpd", "doc", "gfx", "media", "irc", "extra"]
  
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#ccebded6"
-myFocusedBorderColor = "#150603"
- 
+myNormalBorderColor  = "#101010"
+myFocusedBorderColor = "#5074BE"
+myBackgroundColor    = "#000000"
+myForegroundColor    = "#ffffff"
+
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
- 
-    -- launch a terminal
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
- 
-    -- launch rofi
-    , ((modm,               xK_d     ), spawn "rofi -show combi")
+    , ((modm,               xK_d     ), shellPrompt myPromptConfig)
  
     -- close focused window
     , ((modm .|. shiftMask, xK_q     ), kill)
@@ -117,26 +108,17 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
  
-    -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
- 
-    -- Move focus to the next window
-    , ((modm,               xK_j     ), windows W.focusDown)
- 
-    -- Move focus to the previous window
-    , ((modm,               xK_k     ), windows W.focusUp  )
- 
-    -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster  )
- 
-    -- Swap the focused window and the master window
-    , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
- 
-    -- Swap the focused window with the next window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
- 
-    -- Swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
+   -- Directional navigation of windows
+    , ((modm,                 xK_Right), windowGo R False)
+    , ((modm,                 xK_Left ), windowGo L False)
+    , ((modm,                 xK_Up   ), windowGo U False)
+    , ((modm,                 xK_Down ), windowGo D False)
+    
+    -- Swap adjacent windows
+    , ((modm .|. shiftMask, xK_Right), windowSwap R False)
+    , ((modm .|. shiftMask, xK_Left ), windowSwap L False)
+    , ((modm .|. shiftMask, xK_Up   ), windowSwap U False)
+    , ((modm .|. shiftMask, xK_Down ), windowSwap D False)
  
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
@@ -159,11 +141,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --
     , ((modm              , xK_b     ), sendMessage ToggleStruts)
  
-    -- Quit xmonad
-    , ((modm .|. shiftMask, xK_c     ), io (exitWith ExitSuccess))
- 
     -- Restart xmonad
-    , ((modm,               xK_c     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm,               xK_c     ), spawn "xmonad --recompile; killall -9 conky; xmonad --restart")
     ]
     ++
  
@@ -195,14 +174,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0, 0x1008ff15), spawn "mpc stop")
     
     -- Volume
-    , ((0, 0x1008ff13), spawn "amixer -c 1 sset 'Master' 5%+")
-    , ((0, 0x1008ff11), spawn "amixer -c 1 sset 'Master' 5%-")
+    , ((0, 0x1008ff13), spawn "amixer -c 1 sset 'Master' 3%+")
+    , ((0, 0x1008ff11), spawn "amixer -c 1 sset 'Master' 3%-")
     , ((0, 0x1008ff12), spawn "amixer -c 1 sset 'Master' toggle")
     
     -- Screenshot
     , ((0,                  0xff61), spawn "scrot -q 80 -b ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send \"Fullscreen capture saved as:\" \"`date +%Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png\"")
     , ((modm,               0xff61), spawn "scrot -q 80 -u ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send \"Window capture saved as:\" \"`date +%Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png\"")
-    , ((modm .|. shiftMask, 0xff61), spawn "scrot -q 80 -s ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send \"Rectangle area capture saved as:\" \"`date +    %Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png\"")]
+    , ((modm .|. shiftMask, 0xff61), spawn "scrot -q 80 -s ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send \"Rectangle area capture saved as:\" \"`date +%Y`-`date +%m`-`date +%d`-`date +%T`-screenshot.png\"")]
 
 
 
@@ -242,7 +221,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = smartSpacingWithEdge 2 $ avoidStruts (tiled ||| Grid ||| noBorders Full)
+myLayout = avoidStruts $ smartBorders (tiled ||| Grid ||| threeColumns ||| simpleTabbed)
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -255,7 +234,9 @@ myLayout = smartSpacingWithEdge 2 $ avoidStruts (tiled ||| Grid ||| noBorders Fu
  
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
- 
+
+    threeColumns = ThreeCol 1 (3/100) (1/2)
+
 ------------------------------------------------------------------------
 -- Window rules:
  
@@ -272,10 +253,13 @@ myLayout = smartSpacingWithEdge 2 $ avoidStruts (tiled ||| Grid ||| noBorders Fu
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore]
+    [  className =? "MPlayer"         --> doFloat
+    ,  className =? "Gimp"            --> doShift "*"
+    ,  resource  =? "desktop_window"  --> doIgnore
+    ,  resource  =? "kdesktop"        --> doIgnore
+    ,  resource  =? "main"            --> doCenterFloat
+    ,  title     =? "main"            --> doCenterFloat]
+    where role = stringProperty "WM_WINDOW_ROLE"
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -306,14 +290,27 @@ myEventHook = docksEventHook
 -- hook by combining it with ewmhDesktopsStartup.
 --
 myStartupHook = do
-        spawn "xrdb ~/.Xresources"
-        spawn "feh --bg-fill /home/index/Wallpapers/Anime/Serial_Experiments_Lain/1520271295935.jpg"
+        spawn "feh --bg-fill /home/index/Pictures/Wallpapers/Anime/Serial_Experiments_Lain/1561835350723-1.jpg"
         spawn "conky -c /home/index/.config/conky/config"
-        spawn "compton -b --config .config/compton/compton.conf"
+        spawn "xsetroot -cursor_name left_ptr"
+
+myPromptConfig = def
+    { font = "xft:terminus:pixelsize=12:antialias=false" 
+    , bgColor = myBackgroundColor
+    , fgColor = myForegroundColor
+    , fgHLight = "#5074BE"
+    , bgHLight = "#000032"
+    , promptBorderWidth = 0
+    , position = Top
+    , alwaysHighlight = True
+    , height = 20
+    , defaultText = ""
+    , searchPredicate = isInfixOf
+}
 
 main = do
     h <- spawnPipe "xmobar .xmobarrc"
-    xmonad $ def {
+    xmonad $ ewmh $ def {
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
@@ -329,8 +326,11 @@ main = do
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = dynamicLogWithPP $ def { 
-                      ppCurrent = xmobarColor "#150603" "#555555" . wrap " " " " . pad
-                    , ppHidden  = xmobarColor "#150603" ""        . wrap " " " " . pad
+                      ppCurrent = xmobarColor "#5074BE" "" . wrap "[" "]" . pad
+                    , ppHidden  = xmobarColor "#ffffff" "" . wrap "" "" . pad
+                    , ppTitle   = xmobarColor "#e2e2e2" "" . shorten 80
+                    , ppSep     = xmobarColor "#5074BE" "" "; "
+                    , ppUrgent  = xmobarColor "#C45500" "" . wrap "!" "!" 
                     , ppWsSep   = ""
                     , ppOutput  = hPutStrLn h 
                     , ppLayout  = const ""
