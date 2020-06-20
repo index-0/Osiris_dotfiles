@@ -20,6 +20,8 @@ import XMonad.Layout.Tabbed
 
 import XMonad.Prompt
 import XMonad.Prompt.Shell
+import XMonad.Prompt.Man
+import XMonad.Prompt.Ssh
 
 import Data.Monoid
 import Data.List
@@ -95,7 +97,9 @@ myForegroundColor    = "#ffffff"
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
     , ((modm,               xK_d     ), shellPrompt myPromptConfig)
- 
+    , ((modm,               xK_m     ), manPrompt myPromptConfig)
+    , ((modm,               xK_s     ), sshPrompt myPromptConfig)
+
     -- close focused window
     , ((modm .|. shiftMask, xK_q     ), kill)
  
@@ -144,8 +148,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Restart xmonad
     , ((modm,               xK_c     ), spawn "xmonad --recompile; killall -9 conky; xmonad --restart")
     ]
+    
     ++
- 
+
     --
     -- mod-[1..9], Switch to workspace N
     --
@@ -259,7 +264,6 @@ myManageHook = composeAll
     ,  resource  =? "kdesktop"        --> doIgnore
     ,  resource  =? "main"            --> doCenterFloat
     ,  title     =? "main"            --> doCenterFloat]
-    where role = stringProperty "WM_WINDOW_ROLE"
 
 ------------------------------------------------------------------------
 -- Event handling
