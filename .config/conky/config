@@ -9,7 +9,7 @@ conky.config = {
 --#############################################
 	background = true,
 	use_xft = true,
-	font = 'dina:size=10',
+	font = 'xos4 Terminus:pixelsize=12',
 	xftalpha = 1,
 	update_interval = 1.0,
 	total_run_times = 0,

@@ -1,4 +1,4 @@
-Config { font = "xft:terminus:pixelsize=12:antialias=false"
+Config { font = "xft:xos4 Terminus:pixelsize=12:antialias=false"
        , borderColor = "#000000"
        , border = TopB
        , bgColor = "#000000"

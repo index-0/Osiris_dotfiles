@@ -299,7 +299,7 @@ myStartupHook = do
         spawn "xsetroot -cursor_name left_ptr"
 
 myPromptConfig = def
-    { font = "xft:terminus:pixelsize=12:antialias=false" 
+    { font = "xft:xos4 Terminus:pixelsize=12:antialias=false" 
     , bgColor = myBackgroundColor
     , fgColor = myForegroundColor
     , fgHLight = "#5074BE"
