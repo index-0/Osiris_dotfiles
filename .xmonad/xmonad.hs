@@ -87,7 +87,7 @@ myWorkspaces    = ["www", "dev", "sys", "mpd", "doc", "gfx", "media", "irc", "ex
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor  = "#101010"
-myFocusedBorderColor = "#5074BE"
+myFocusedBorderColor = "#54487A"
 myBackgroundColor    = "#000000"
 myForegroundColor    = "#ffffff"
 
@@ -330,11 +330,11 @@ main = do
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = dynamicLogWithPP $ def { 
-                      ppCurrent = xmobarColor "#5074BE" "" . wrap "[" "]" . pad
+                      ppCurrent = xmobarColor "#6E56AF" "" . wrap "[" "]" . pad
                     , ppHidden  = xmobarColor "#ffffff" "" . wrap "" "" . pad
                     , ppTitle   = xmobarColor "#e2e2e2" "" . shorten 80
-                    , ppSep     = xmobarColor "#5074BE" "" "; "
-                    , ppUrgent  = xmobarColor "#C45500" "" . wrap "!" "!" 
+                    , ppSep     = xmobarColor "#6E56AF" "" "; "
+                    , ppUrgent  = xmobarColor "#D9534F" "" . wrap "!" "!" 
                     , ppWsSep   = ""
                     , ppOutput  = hPutStrLn h 
                     , ppLayout  = const ""

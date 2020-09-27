@@ -14,18 +14,21 @@ Config { font = "xft:xos4 Terminus:pixelsize=12:antialias=false"
        , iconRoot = "."
        , allDesktops = True
        , overrideRedirect = True
-       , commands = [ Run MPD ["-t", "<artist> - <title>"] 5
+       , commands = [ Run MPD ["-t", "<artist> - <title> - <lapsed>/<length> <statei>","--", "-P", ">>", "-Z", "||", "-S", "><"] 10
                     , Run DiskU [("/", "<usedp> "), ("/boot", "<usedp> "), ("/mnt", "<usedp> "), ("/home/index/mount","<usedp> ")] 
-                      ["-L", "20", "-n", "green", "-H", "90", "-h", "red"] 20
-                    , Run Volume "default" "Master" ["-t","<volume>% <status>"] 10
-                    , Run Cpu ["-t","<total>%","-w","3","-L","5","-H","75","--normal","green","--high","red"] 10
-                    , Run Memory ["-t","<usedratio>%"] 10
-                    , Run Network "wlp11s0f3u1" ["-t","<rx> <tx>","-w","4","-L","30","-H","60","--normal","green","--high","red"] 10
-                    , Run Date "<fc=#e2e2e2>%b %_d %H:%M:%S</fc>" "date" 10
+                      ["-L", "20", "-n", "#73D216", "-H", "90", "-h", "#D9534F"] 300
+                    , Run Volume "default" "Master" ["-t","<volume>% <status>","--","-C","#73D216","-c","#D9534F"] 10
+                    , Run MultiCoreTemp ["-t","<avg>","-L", "60", "-H", "80", "-l", "#73D216", "-n", "#FCF8E3", "-h", "#D9534F"] 10
+                    , Run MultiCpu ["-t","<total>","-w","3","-L","0","-H","75","--normal","#73D216","--high","#D9534F"] 10
+                    , Run Memory ["-t","<usedratio>","-w","3","-L","0","-H","75","--normal","#73D216","--high","#D9534F"] 10
+                    , Run Wireless "wlp11s0f3u1" [] 60
+                    , Run Network "wlp11s0f3u1" ["-t","<rx> <tx>","-w","4","-L","0","-H","60","--normal","#73D216","--high","#D9534F"] 10
+                    , Run Uptime ["-t","<days>d <hours>h <minutes>m"] 600
+                    , Run Date "%b %_d %H:%M" "date" 600
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader%} %mpd% {> %disku% | %default:Master%| %cpu% <+> %memory% | %wlp11s0f3u1% | <fc=#ee9a00>%date%</fc> "
+       , template = "%StdinReader%} %mpd% {%disku% | %default:Master%| %multicoretemp% %multicpu% - %memory% | %wlp11s0f3u1wi% %wlp11s0f3u1% | %uptime% | %date%"
        }
 
