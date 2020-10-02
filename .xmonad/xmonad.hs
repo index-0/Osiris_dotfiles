@@ -82,7 +82,7 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["www", "dev", "sys", "mpd", "doc", "gfx", "media", "irc", "extra"]
+myWorkspaces    = ["www", "dev", "sys", "doc", "mpd", "gfx", "media", "im", "p2p", "+"]
  
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -127,7 +127,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
  
-    -- Expand the master area
+  -- Expand the master area
     , ((modm,               xK_l     ), sendMessage Expand)
  
     -- Push window back into tiling
@@ -158,7 +158,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-shift-[1..9], Move client to workspace N
     --
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+        | (i, k) <- zip (XMonad.workspaces conf) $ [xK_1 .. xK_9] ++ [xK_0]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
  
