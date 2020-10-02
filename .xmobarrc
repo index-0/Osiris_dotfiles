@@ -1,4 +1,4 @@
-Config { font = "xft:xos4 Terminus:pixelsize=12:antialias=false"
+Config { font = "xft:xos4 Terminus:pixelsize=11:antialias=false,Mona:pixelsize=11:style=Regular"
        , borderColor = "#000000"
        , border = TopB
        , bgColor = "#000000"
@@ -19,9 +19,10 @@ Config { font = "xft:xos4 Terminus:pixelsize=12:antialias=false"
                       ["-L", "20", "-n", "#73D216", "-H", "90", "-h", "#D9534F"] 300
                     , Run Volume "default" "Master" ["-t","<volume>% <status>","--","-C","#73D216","-c","#D9534F"] 10
                     , Run MultiCoreTemp ["-t","<avg>","-L", "60", "-H", "80", "-l", "#73D216", "-n", "#FCF8E3", "-h", "#D9534F"] 10
-                    , Run MultiCpu ["-t","<total>","-w","3","-L","0","-H","75","--normal","#73D216","--high","#D9534F"] 10
+                    , Run Com "sh" ["-c", "awk '{ print $1, $2, $3 }' /proc/loadavg"] "loadavg" 10
+                    , Run MultiCpu ["-t","<total> <ipat>","-w","3","-L","0","-H","75","--normal","#73D216","--high","#D9534F"] 10
                     , Run Memory ["-t","<usedratio>","-w","3","-L","0","-H","75","--normal","#73D216","--high","#D9534F"] 10
-                    , Run Wireless "wlp11s0f3u1" [] 60
+                    , Run Wireless "wlp11s0f3u1" ["-t","<quality>"] 60
                     , Run Network "wlp11s0f3u1" ["-t","<rx> <tx>","-w","4","-L","0","-H","60","--normal","#73D216","--high","#D9534F"] 10
                     , Run Uptime ["-t","<days>d <hours>h <minutes>m"] 600
                     , Run Date "%b %_d %H:%M" "date" 600
@@ -29,6 +30,6 @@ Config { font = "xft:xos4 Terminus:pixelsize=12:antialias=false"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader%} %mpd% {%disku% | %default:Master%| %multicoretemp% %multicpu% - %memory% | %wlp11s0f3u1wi% %wlp11s0f3u1% | %uptime% | %date%"
+       , template = "%StdinReader%} %mpd% {%disku% | %default:Master%| %wlp11s0f3u1wi% %wlp11s0f3u1% | %multicoretemp% %multicpu% - %memory% | %loadavg% | %uptime% | %date%"
        }
 
