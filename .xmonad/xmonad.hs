@@ -258,12 +258,13 @@ myLayout = avoidStruts $ smartBorders (tiled ||| Grid ||| threeColumns ||| simpl
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [  className =? "MPlayer"         --> doFloat
-    ,  className =? "Gimp"            --> doShift "*"
-    ,  resource  =? "desktop_window"  --> doIgnore
-    ,  resource  =? "kdesktop"        --> doIgnore
-    ,  resource  =? "main"            --> doCenterFloat
-    ,  title     =? "main"            --> doCenterFloat]
+    [  className =? "MPlayer"             --> doFloat
+    ,  className =? "Gimp"                --> doShift "*"
+    ,  resource  =? "desktop_window"      --> doIgnore
+    ,  resource  =? "kdesktop"            --> doIgnore
+    ,  resource  =? "main"                --> doCenterFloat
+    ,  title     =? "main"                --> doCenterFloat
+    ,  title     =? "Blender Preferences" --> doCenterFloat]
 
 ------------------------------------------------------------------------
 -- Event handling
