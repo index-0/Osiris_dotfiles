@@ -1,10 +1,10 @@
-Config { font = "xft:xos4 Terminus:pixelsize=11:antialias=false,Mona:pixelsize=11:style=Regular"
-       , borderColor = "#000000"
+Config { font = "-misc-fixed-medium-r-normal-*-14-130-75-75-c-70-iso10646-1"
+       , borderColor = "#114488"
        , border = TopB
-       , bgColor = "#000000"
-       , fgColor = "#ffffff"
+       , bgColor = "#114488"
+       , fgColor = "#e4e7ea"
        , alpha = 255
-       , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 20 }
+       , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 18 }
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
@@ -14,7 +14,7 @@ Config { font = "xft:xos4 Terminus:pixelsize=11:antialias=false,Mona:pixelsize=1
        , iconRoot = "."
        , allDesktops = True
        , overrideRedirect = True
-       , commands = [ Run MPD ["-t", "<artist> - <title> - <lapsed>/<length> <statei>","--", "-P", ">>", "-Z", "||", "-S", "><"] 10
+       , commands = [ Run MPD ["-t", "<artist> - <title> - <lapsed>/<length> <statei>","--", "-P", ">>", "-Z", "||", "-S", "><"] 5
                     , Run DiskU [("/", "<usedp> "), ("/boot", "<usedp> "), ("/mnt", "<usedp> "), ("/home/index/mount","<usedp> ")] 
                       ["-L", "20", "-n", "#73D216", "-H", "90", "-h", "#D9534F"] 300
                     , Run Volume "default" "Master" ["-t","<volume>% <status>","--","-C","#73D216","-c","#D9534F"] 10
@@ -30,6 +30,6 @@ Config { font = "xft:xos4 Terminus:pixelsize=11:antialias=false,Mona:pixelsize=1
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader%} %mpd% {%disku% | %default:Master%| %wlp11s0f3u1wi% %wlp11s0f3u1% | %multicoretemp% %multicpu% - %memory% | %loadavg% | %uptime% | %date%"
+       , template = "%StdinReader%} <action=`mpc toggle` button=1>%mpd%</action> {%disku% | <action=`amixer -D pulse set Master 1+ toggle`>%default:Master%</action>| %wlp11s0f3u1wi% %wlp11s0f3u1% | %multicoretemp% %multicpu% - %memory% | %loadavg% | %uptime% | %date% "
        }
 

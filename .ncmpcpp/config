@@ -192,8 +192,7 @@ alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
 
 alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
 
-# now_playing_prefix = $b
-now_playing_prefix = "$(red)»$b"
+#now_playing_prefix = "$b"
 
 # now_playing_suffix = $/b
 now_playing_suffix = "$(white)$/b"
@@ -257,7 +256,7 @@ browser_sort_format = {%a - }{%t}|{%f} {(%l)}
 ##   available.
 ##
 #
-song_columns_list_format = "(4f)[blue]{n} (40)[white]{t} (30)[white]{a} (30)[white]{b} (6f)[yellow]{l}"
+song_columns_list_format = "(4f)[blue]{n} (40)[white]{t} (30)[white]{a} (30)[white]{b} (6f)[blue]{l}"
 
 #
 ##### various settings #####
@@ -313,7 +312,7 @@ centered_cursor = no
 ## Note: You can specify third character which will be used to build 'empty'
 ## part of progressbar.
 ##
-progressbar_look = ─╼
+progressbar_look = ->
 
 ## Available values: database, playlist.
 ##
@@ -321,7 +320,7 @@ default_place_to_search_in = database
 
 ## Available values: classic, alternative.
 ##
-user_interface = alternative
+user_interface = classic
 
 data_fetching_delay = yes
 
@@ -349,7 +348,7 @@ cyclic_scrolling = no
 
 lines_scrolled = 2
 
-# lyrics_fetchers = lyricwiki, azlyrics, genius, sing365, lyricsmania, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, internet
+lyrics_fetchers = lyricwiki, azlyrics, genius, sing365, lyricsmania, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, internet
 
 follow_now_playing_lyrics = no
 
@@ -413,7 +412,7 @@ startup_screen = playlist
 #
 #clock_display_seconds = no
 #
-#display_volume_level = yes
+display_volume_level = yes
 #
 display_bitrate = yes
 #
@@ -505,32 +504,17 @@ enable_window_title = yes
 ## transparent background.
 
 colors_enabled = yes
-
 empty_tag_color = cyan
-
 header_window_color = white
-
 volume_color = white
-
 state_line_color = white
-
 state_flags_color = white
-
 main_window_color = white
-
 color1 = white
-
 color2 = white
-
 progressbar_color = white
-
-progressbar_elapsed_color = green
-
+progressbar_elapsed_color = red
 statusbar_color = white
-
-alternative_ui_separator_color = red
-
+alternative_ui_separator_color = white
 window_border_color = white
-
 active_window_border = white
-

@@ -9,7 +9,7 @@ conky.config = {
 --#############################################
 	background = true,
 	use_xft = true,
-	font = 'xos4 Terminus:pixelsize=11',
+	font = 'Misc Fixed:style=Regular:pixelsize=14',
 	xftalpha = 1,
 	update_interval = 1.0,
 	total_run_times = 0,
@@ -24,8 +24,8 @@ conky.config = {
 	draw_outline = false,
 	draw_borders = false,
 	draw_graph_borders = false,
-	default_color = '#ebded6',
-	default_shade_color = '#6E56AF',
+	default_color = '#e4e7ea',
+	default_shade_color = '#95c8fc',
 	default_outline_color = '#9B64FB',
 	alignment = 'middle_right',
 	gap_x = 14,
@@ -40,14 +40,14 @@ conky.config = {
 };
 
 conky.text = [[
-${color #6E56AF}SYSTEM INFORMATION $hr${color}
+${color #95c8fc}SYSTEM INFORMATION $hr${color}
 Host:$alignr$nodename
 OS: $alignr Gentoo Linux
 Kernel:$alignr$kernel
 Uptime:$alignr$uptime
 Processes: ${alignr}$processes ($running_processes running)
 Load: ${alignr}$loadavg
-${color #6E56AF}NETWORK $hr${color}
+${color #95c8fc}NETWORK $hr${color}
 Gateway:$alignr$gw_ip
 Local IP: $alignr ${addr wlp11s0f3u1}
 Down:          Up:
@@ -55,19 +55,19 @@ ${downspeedgraph wlp11s0f3u1 25,88 282828 282828} | ${alignr}${upspeedgraph wlp1
 ${downspeedf wlp11s0f3u1}KiB/s ${alignr}${upspeedf wlp11s0f3u1}KiB/s
 ${totaldown wlp11s0f3u1} ${alignr}${totalup wlp11s0f3u1}
 
-${color #6E56AF}CPU $hr${color}
+${color #95c8fc}CPU $hr${color}
 Usage:${alignr}${cpu cpu0}%
 Frequency:${alignr}${freq}MHz
 Temperature:${alignr}${exec sensors | grep 'Tctl' | awk '{print $2}' | cut -c2-3}C
 $cpugraph
 
-${color #6E56AF}GPU $hr${color}
+${color #95c8fc}GPU $hr${color}
 vddgfx:${alignr}${exec sensors | grep "vddgfx" | awk '{print $2 " " $3}'}
 Fan Speed:${alignr}${exec sensors | grep "fan1" | awk '{print $2}'} RPM
 Temperature: ${alignr}${exec sensors | grep "crit" | awk '{print $2}' | cut -c2-3}C
 Power:${alignr}${exec sensors | grep 'power1' | awk '{print $2}'} W
 
-${color #6E56AF}HDD $hr${color}
+${color #95c8fc}HDD $hr${color}
 Filesystem Space Left:
 /$alignr${fs_used /}/${fs_size /}
 ${fs_bar /}
@@ -79,12 +79,12 @@ ${fs_bar /boot}
 ${fs_bar /mnt}
 
 #${execigraph 2 -t sensors | grep temp2 | cut -c 15-16 | tail -1}
-${color #6E56AF}MEMORY & I/O $hr${color}
+${color #95c8fc}MEMORY & I/O $hr${color}
 Memory:$alignr$mem / $memmax
 $memgraph
 Disk I/O:$alignr$diskio/s
 $diskiograph
-${color #6E56AF}TOP PROCESSES $hr${color}
+${color #95c8fc}TOP PROCESSES $hr${color}
 ${top name 1}$alignr${top cpu 1}%
 ${top name 2}$alignr${top cpu 2}%
 ${top name 3}$alignr${top cpu 3}%
