@@ -25,10 +25,10 @@ myFocusFollowsMouse = True
 myBorderWidth   = 1
 myModMask       = mod4Mask
 myWorkspaces    = ["www", "dev", "sys", "doc", "mpd", "gfx", "med", "im", "p2p", "+"]
-myNormalBorderColor  = "#101010"
-myFocusedBorderColor = "#54487A"
-myBackgroundColor    = "#114488"
-myForegroundColor    = "#e4e7ea"
+myNormalBorderColor  = "#000000"
+myFocusedBorderColor = "#FF9CFE"
+myBackgroundColor    = "#000000"
+myForegroundColor    = "#AEAEAE"
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
@@ -90,7 +90,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
                                        >> windows W.shiftMaster))
     ]
 
-myLayout = avoidStruts $ smartBorders (tiled ||| Grid ||| threeColumns ||| simpleTabbed) ||| Full
+myLayout = avoidStruts $ smartBorders (tiled ||| Grid ||| threeColumns ||| simpleTabbed)
   where
     tiled   = Tall nmaster delta ratio
     nmaster = 1
@@ -103,7 +103,6 @@ myLayoutPrinter "Tall"            = " [ ]= "
 myLayoutPrinter "Grid"            = " [G]= "
 myLayoutPrinter "ThreeCol"        = " [3]= "
 myLayoutPrinter "Tabbed Simplest" = " [T]= "
-myLayoutPrinter "Full"            = " [F]= "
 myLayoutPrinter x                 = x
 
 myManageHook = composeAll
@@ -117,7 +116,7 @@ myManageHook = composeAll
 myEventHook = docksEventHook
  
 myStartupHook = do
-        spawn "feh --bg-fill /home/index/Pictures/Wallpapers/114488.png"
+        spawn "feh --bg-fill /home/index/Pictures/Wallpapers/000000.png"
         spawn "conky -c /home/index/.config/conky/config"
         spawn "xsetroot -cursor_name left_ptr"
 
@@ -125,7 +124,7 @@ myPromptConfig = def
     { font = "-misc-fixed-medium-r-normal-*-14-130-75-75-c-70-iso10646-1" 
     , bgColor = myBackgroundColor
     , fgColor = myForegroundColor
-    , fgHLight = "#95c8fc"
+    , fgHLight = "#FF9CFE"
     , bgHLight = myBackgroundColor
     , promptBorderWidth = 0
     , position = Top
@@ -153,14 +152,14 @@ main =
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = dynamicLogWithPP $ def { 
-                      ppCurrent = xmobarColor "#E4E7EA" "" . wrap "[" "]" . pad
-                    , ppHidden  = xmobarColor "#95C8fC" "" . wrap "" "" . pad
-                    , ppTitle   = xmobarColor "#E4E7EA" "" . shorten 80
+                      ppCurrent = xmobarColor "#FF9CFE" "" . wrap "[" "]" . pad
+                    , ppHidden  = xmobarColor "#FFFFCB" "" . wrap "" "" . pad
+                    , ppTitle   = xmobarColor "#ABABAB" "" . shorten 65
                     , ppSep     = xmobarColor "#D3D3D3" "" ""
                     , ppUrgent  = xmobarColor "#D9534F" "" . wrap "!" "!" 
                     , ppWsSep   = ""
                     , ppOutput  = hPutStrLn h
-                    , ppLayout  = xmobarColor "#D3D3D3" "" . myLayoutPrinter
+                    , ppLayout  = xmobarColor "#EEEEEE" "" . myLayoutPrinter
                       },
         startupHook        = myStartupHook
     }

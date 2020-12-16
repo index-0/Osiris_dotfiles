@@ -6,7 +6,8 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 
-static char *font = "xos4 Terminus:pixelsize=12:antialias=false:autohint=true";
+/* static char *font = "xos4 Terminus:pixelsize=12:antialias=false:autohint=true"; */
+static char *font = "-misc-fixed-medium-r-normal-*-14-130-75-75-c-70-iso10646-1";
 static int borderpx = 2;
 
 /*
@@ -95,45 +96,41 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
-	/* 8 normal colors */
-        "#101010",
-        "#D9534F",
-        "#73D216",
-        "#d8984e",
-        "#7DC1CF",
-        "#6E56AF",
-        "#6D878D",
-        "#dddddd",
+ const char *colorname[] = {
 
-	/* 8 bright colors */
-        "#404040",
-        "#FB052E",
-        "#B3FC00",
-        "#F39D21",
-        "#4E9FB1",
-        "#8542FF",
-        "#42717B",
-        "#dddddd",
+  /* 8 normal colors */
+  [0] = "#4E4E4E", /* black   */
+  [1] = "#FF6C60", /* red     */
+  [2] = "#A8FF60", /* green   */
+  [3] = "#FFFFB6", /* yellow  */
+  [4] = "#96CBFE", /* blue    */
+  [5] = "#FF73FD", /* magenta */
+  [6] = "#C6C5FE", /* cyan    */
+  [7] = "#EEEEEE", /* white   */
 
-	[255] = 0,
+  /* 8 bright colors */
+  [8]  = "#7C7C7C", /* black   */
+  [9]  = "#FFB6B0", /* red     */
+  [10] = "#CEFFAB", /* green   */
+  [11] = "#FFFFCB", /* yellow  */
+  [12] = "#FFFFCB", /* blue    */
+  [13] = "#FF9CFE", /* magenta */
+  [14] = "#DFDFFE", /* cyan    */
+  [15] = "#FFFFFF", /* white   */
 
-	/* more colors can be added after 255 to use with DefaultXX */
-        "#209090",
-        "#555555",
-        "#D2C5BC",
-        "#000000",
+  /* special colors */
+  [256] = "#000000", /* background */
+  [257] = "#ababab", /* foreground */
 };
-
 
 /*
  * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
+ * foreground, background, cursor
  */
-unsigned int defaultfg = 258;
-unsigned int defaultbg = 259;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+unsigned int defaultcs = 257;
+unsigned int defaultrcs = 257;
 
 /*
  * Default shape of cursor
