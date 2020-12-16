@@ -29,6 +29,6 @@ Config { font = "-misc-fixed-medium-r-normal-*-14-130-75-75-c-70-iso10646-1"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader%} %mpd% {%disku% | %default:Master%| %wlp11s0f3u1wi% %wlp11s0f3u1% | %multicoretemp% %multicpu% - %memory% | %uptime% | %date% "
+       , template = "%StdinReader%} %mpd% {%disku% | %default:Master%| %wlp11s0f3u1wi% %wlp11s0f3u1% | %multicoretemp% %multicpu% - %memory% | %uptime% | <fc=#FFFFCB>%date%</fc> "
        }
 
