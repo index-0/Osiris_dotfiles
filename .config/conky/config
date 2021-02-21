@@ -56,6 +56,7 @@ ${downspeedf wlp11s0f3u1}KiB/s ${alignr}${upspeedf wlp11s0f3u1}KiB/s
 ${totaldown wlp11s0f3u1} ${alignr}${totalup wlp11s0f3u1}
 
 ${color #FF9CFE}CPU $hr${color}
+Vcore: ${alignr}${exec sensors | grep "Vcore" | awk '{print $2}'}
 Usage:${alignr}${cpu cpu0}%
 Frequency:${alignr}${freq}MHz
 Temperature:${alignr}${exec sensors | grep 'Tctl' | awk '{print $2}' | cut -c2-3}C
@@ -64,7 +65,7 @@ $cpugraph
 ${color #FF9CFE}GPU $hr${color}
 vddgfx:${alignr}${exec sensors | grep "vddgfx" | awk '{print $2 " " $3}'}
 Fan Speed:${alignr}${exec sensors | grep "fan1" | awk '{print $2}'} RPM
-Temperature: ${alignr}${exec sensors | grep "crit" | awk '{print $2}' | cut -c2-3}C
+Temperature: ${alignr}${exec sensors | grep "edge" | awk '{print $2}' | cut -c2-3}C
 Power:${alignr}${exec sensors | grep 'power1' | awk '{print $2}'} W
 
 ${color #FF9CFE}HDD $hr${color}

@@ -6,6 +6,7 @@ import XMonad.Util.Run
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks 
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Actions.Navigation2D
 import XMonad.Layout.Grid
 import XMonad.Layout.ThreeColumns
@@ -24,8 +25,8 @@ myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
 myBorderWidth   = 1
 myModMask       = mod4Mask
-myWorkspaces    = ["www", "dev", "sys", "doc", "mpd", "gfx", "med", "im", "p2p", "+"]
-myNormalBorderColor  = "#000000"
+myWorkspaces    = ["www", "dev", "sys", "eth", "mpd", "gfx", "med", "im", "p2p", "+"]
+myNormalBorderColor  = "#AEAEAE"
 myFocusedBorderColor = "#FF9CFE"
 myBackgroundColor    = "#000000"
 myForegroundColor    = "#AEAEAE"
@@ -53,7 +54,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
     , ((modm              , xK_b     ), sendMessage ToggleStruts)
-    , ((modm,               xK_c     ), spawn "xmonad --recompile; killall -9 conky; xmonad --restart")
+    , ((modm,               xK_c     ), spawn "xmonad --recompile; xmonad --restart")
     ]
     
     ++
@@ -115,9 +116,8 @@ myManageHook = composeAll
 
 myEventHook = docksEventHook
  
-myStartupHook = do
-        spawn "feh --bg-fill /home/index/Pictures/Wallpapers/000000.png"
-        spawn "conky -c /home/index/.config/conky/config"
+myStartupHook =
+        spawn "feh --bg-fill /home/index/Pictures/Wallpapers/000000.png" >>
         spawn "xsetroot -cursor_name left_ptr"
 
 myPromptConfig = def
@@ -136,7 +136,7 @@ myPromptConfig = def
 
 main = 
     spawnPipe "xmobar .xmobarrc" >>= \h ->
-    xmonad $ def {
+    xmonad $ ewmh def {
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
