@@ -7,7 +7,8 @@
  */
 
 /* static char *font = "xos4 Terminus:pixelsize=12:antialias=false:autohint=true"; */
-static char *font = "-misc-fixed-medium-r-normal-*-14-130-75-75-c-70-iso10646-1";
+/* static char *font = "-misc-fixed-medium-r-normal-*-14-130-75-75-c-70-iso10646-1"; */
+static char *font = "Misc Fixed:style=SemiCondensed:pixelsize=13";
 static int borderpx = 2;
 
 /*
@@ -96,31 +97,31 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
- const char *colorname[] = {
+static const char *colorname[] = {
 
   /* 8 normal colors */
-  [0] = "#4E4E4E", /* black   */
-  [1] = "#FF6C60", /* red     */
-  [2] = "#A8FF60", /* green   */
-  [3] = "#FFFFB6", /* yellow  */
-  [4] = "#96CBFE", /* blue    */
-  [5] = "#FF73FD", /* magenta */
-  [6] = "#C6C5FE", /* cyan    */
-  [7] = "#EEEEEE", /* white   */
+  [0] = "#000000", /* black   */
+  [1] = "#f25a5a", /* red     */
+  [2] = "#77bb33", /* green   */
+  [3] = "#efc334", /* yellow  */
+  [4] = "#5555dd", /* blue    */
+  [5] = "#c350ff", /* magenta */
+  [6] = "#5af2ee", /* cyan    */
+  [7] = "#bebebe", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#7C7C7C", /* black   */
-  [9]  = "#FFB6B0", /* red     */
-  [10] = "#CEFFAB", /* green   */
-  [11] = "#FFFFCB", /* yellow  */
-  [12] = "#FFFFCB", /* blue    */
-  [13] = "#FF9CFE", /* magenta */
-  [14] = "#DFDFFE", /* cyan    */
-  [15] = "#FFFFFF", /* white   */
+  [8]  = "#222222", /* black   */
+  [9]  = "#ffbbbb", /* red     */
+  [10] = "#dcf692", /* green   */
+  [11] = "#f6df92", /* yellow  */
+  [12] = "#b2baf6", /* blue    */
+  [13] = "#f09fff", /* magenta */
+  [14] = "#5af2ee", /* cyan    */
+  [15] = "#eeeeee", /* white   */
 
   /* special colors */
   [256] = "#000000", /* background */
-  [257] = "#ababab", /* foreground */
+  [257] = "#bebebe", /* foreground */
 };
 
 /*
@@ -129,8 +130,17 @@ unsigned int tabspaces = 8;
  */
 unsigned int defaultfg = 257;
 unsigned int defaultbg = 256;
-unsigned int defaultcs = 257;
-unsigned int defaultrcs = 257;
+static unsigned int defaultcs = 257;
+static unsigned int defaultrcs = 257;
+
+/*
+ * Colors used, when the specific fg == defaultfg. So in reverse mode this
+ * will reverse too. Another logic would only make the simple feature too
+ * complex.
+ */
+static unsigned int defaultitalic = 7;
+static unsigned int defaultunderline = 7;
+
 
 /*
  * Default shape of cursor
