@@ -1,0 +1,23 @@
+Config { font = "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-1"
+       , border = NoBorder
+       , bgColor = "#000000"
+       , fgColor = "#BEBEBE"
+       , alpha = 255
+       , position = TopSize C 100 17
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Date "%a %b %d %R:%S" "date" 10
+                    , Run StdinReader ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader%}{ <fc=#F25A5A>%date%</fc> "
+
+       }
+

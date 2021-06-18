@@ -1,0 +1,37 @@
+Config { font = "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-1"
+       , bgColor = "#000000"
+       , fgColor = "#BEBEBE"
+       , alpha = 255
+       , position = BottomSize C 100 17
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Com "uname" ["-r"] "kernel" 0
+                    , Run Com "hostname" ["-s"] "" 0
+                    , Run Com "sh" ["/home/index/.xmonad/scripts/ip.sh"] "ip" 0
+                    , Run Com "cat" ["/proc/loadavg"] "loadavg" 10
+                    , Run Uptime ["-t","<days>d <hours>h <minutes>m"] 600
+                    , Run MPD ["-t", "<fc=#EFC334><artist></fc> - <fc=#BEBEBE><title></fc> <fc=#5AF2EE>(<album>)</fc> <fc=#F25A5A><lapsed>/<length></fc> <statei>","--", "-P", ">>", "-Z", "||", "-S", "><"] 5
+                    , Run DiskU [("/", "<usedp>"), ("/boot", " <usedp>"), ("/mnt/alpha", " <usedp>"), ("/mnt/beta"," <usedp>")]
+                      ["-L", "20", "-n", "#696969", "-H", "90", "-h", "#9A9A9A"] 200
+            		, Run Alsa "default" "Master"
+                 		[ "-t", "<fc=#9A9A9A><volume>%</fc> <status>"
+                 		, "--"
+                 		, "-C", "#9A9A9A", "-c", "#696969"]
+                    , Run MultiCoreTemp ["-t","<avg>","-L", "60", "-H", "80", "-l", "#696969", "-n", "#AEAEAE", "-h", "#9A9A9A"] 10
+                    , Run MultiCpu ["-t","<total> <ipat>","-w","3","-L","0","-H","75","--normal","#696969","--high","#9A9A9A"] 10
+                    , Run Memory ["-t","<usedratio>","-w","3","-L","0","-H","75","--normal","#696969","--high","#9A9A9A"] 10
+                    , Run Wireless "wlp2s0f0u4" ["-t","<fc=#9A9A9A><quality></fc>", "-w", "3"] 60
+                    , Run Network "wlp2s0f0u4" ["-t","<rx> <tx>","-w","4","-L","0","-H","800", "-l", "#696969", "-n","#696969","-h","#9A9A9A"] 10
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <fc=#ACACAC>%kernel%  %hostname%@%ip%  %loadavg%  %uptime%</fc> |} %mpd% {| <box type=Bottom width=1 color=#EFC334>%multicoretemp% %multicpu%  %memory%</box>  <box type=Bottom width=1 color=#5AF2EE>%disku%</box>  <box type=Bottom width=1 color=#F25A5A>%wlp2s0f0u4wi% %wlp2s0f0u4%</box> | %alsa:default:Master%"
+       }
+

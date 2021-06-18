@@ -30,7 +30,7 @@ mpd_port = 6600
 #
 ## Needed for tag editor and file operations to work.
 ##
-mpd_music_dir = /mnt/Music
+mpd_music_dir = /mnt/beta/Music
 #
 #mpd_crossfade_time = 5
 #
@@ -295,7 +295,7 @@ browser_sort_format = {%a - }{%t}|{%f} {(%l)}
 ##   available.
 ##
 #
-song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
+song_columns_list_format = (8f)[magenta]{NE} (50)[white]{t|f:Title} (20)[]{a} (20)[cyan]{b} (7f)[red]{l}
 #
 ##### various settings #####
 #
@@ -319,14 +319,14 @@ song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)
 #
 #playlist_shorten_total_times = no
 #
-#playlist_separate_albums = no
+playlist_separate_albums = yes
 #
 ##
 ## Note: Possible display modes: classic, columns.
 ##
 playlist_display_mode = columns
 #
-browser_display_mode = classic
+browser_display_mode = columns
 #
 search_engine_display_mode = classic
 #
@@ -334,7 +334,7 @@ playlist_editor_display_mode = classic
 #
 discard_colors_if_item_is_selected = yes
 #
-show_duplicate_tags = yes
+show_duplicate_tags = no
 #
 incremental_seeking = yes
 #
@@ -547,36 +547,36 @@ use_console_editor = yes
 ## transparent background.
 #
 colors_enabled = yes
-#
+
 empty_tag_color = cyan
-#
+
 header_window_color = default
-#
+
 volume_color = default
-#
+
 state_line_color = default
-#
+
 state_flags_color = default:b
-#
+
 main_window_color = yellow
-#
+
 color1 = white
-#
+
 color2 = green
-#
+
 progressbar_color = black:b
-#
+
 progressbar_elapsed_color = green:b
-#
+
 statusbar_color = default
-#
+
 statusbar_time_color = default:b
-#
+
 player_state_color = default:b
-#
+
 alternative_ui_separator_color = black:b
-#
+
 window_border_color = green
-#
+
 active_window_border = red
-#
+
